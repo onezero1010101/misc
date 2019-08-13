@@ -1,0 +1,308 @@
+[
+    {
+        "id": "a4be2138.8781c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e1c208a3.fb3948",
+        "type": "inject",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "topic": "",
+        "payload": "open",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "65d76728.4ab3f8"
+            ]
+        ]
+    },
+    {
+        "id": "65d76728.4ab3f8",
+        "type": "rpi-omxplayer",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "filename": "/home/pi/video2.mp4",
+        "audiooutput": "hdmi",
+        "blackbackground": true,
+        "disablekeys": true,
+        "disableosd": true,
+        "disableghostbox": true,
+        "subtitlepath": "",
+        "loop": false,
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "ce3fbcd0.fc9a1",
+                "502fe067.a5f66"
+            ]
+        ]
+    },
+    {
+        "id": "413178ef.ab3298",
+        "type": "inject",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 500,
+        "wires": [
+            [
+                "65d76728.4ab3f8"
+            ]
+        ]
+    },
+    {
+        "id": "ac385d0d.0408",
+        "type": "inject",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "topic": "",
+        "payload": "pause",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "65d76728.4ab3f8"
+            ]
+        ]
+    },
+    {
+        "id": "3b57aab0.37ab96",
+        "type": "debug",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "status.pos",
+        "x": 1260,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ce3fbcd0.fc9a1",
+        "type": "switch",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "property": "status.pos",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1090,
+        "y": 100,
+        "wires": [
+            [
+                "3b57aab0.37ab96"
+            ]
+        ]
+    },
+    {
+        "id": "389f24c8.766f1c",
+        "type": "debug",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "status.duration",
+        "x": 1270,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "502fe067.a5f66",
+        "type": "switch",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "property": "status.duration",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1090,
+        "y": 160,
+        "wires": [
+            [
+                "389f24c8.766f1c"
+            ]
+        ]
+    },
+    {
+        "id": "31e239b5.48f8b6",
+        "type": "inject",
+        "z": "a4be2138.8781c",
+        "name": "restart beginning",
+        "topic": "",
+        "payload": "setposition 10000",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 540,
+        "wires": [
+            [
+                "65d76728.4ab3f8"
+            ]
+        ]
+    },
+    {
+        "id": "e798123d.baea",
+        "type": "trigger",
+        "z": "a4be2138.8781c",
+        "op1": "open",
+        "op2": "pause",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "1",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 220,
+        "y": 100,
+        "wires": [
+            [
+                "65d76728.4ab3f8",
+                "672b5874.bc84f8"
+            ]
+        ]
+    },
+    {
+        "id": "b1508277.aac3",
+        "type": "inject",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "topic": "",
+        "payload": "start",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 90,
+        "y": 100,
+        "wires": [
+            [
+                "e798123d.baea"
+            ]
+        ]
+    },
+    {
+        "id": "672b5874.bc84f8",
+        "type": "debug",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "x": 430,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "aa442fe0.74a57",
+        "type": "trigger",
+        "z": "a4be2138.8781c",
+        "op1": "setposition 10",
+        "op2": "pause",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "1",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 500,
+        "y": 320,
+        "wires": [
+            [
+                "65d76728.4ab3f8"
+            ]
+        ]
+    },
+    {
+        "id": "6aa41649.0b37a8",
+        "type": "inject",
+        "z": "a4be2138.8781c",
+        "name": "motion trigger",
+        "topic": "",
+        "payload": "playpause",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "2",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "65d76728.4ab3f8",
+                "d59b791a.a82d98"
+            ]
+        ]
+    },
+    {
+        "id": "d59b791a.a82d98",
+        "type": "delay",
+        "z": "a4be2138.8781c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "9.5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 330,
+        "y": 260,
+        "wires": [
+            [
+                "aa442fe0.74a57"
+            ]
+        ]
+    }
+]
